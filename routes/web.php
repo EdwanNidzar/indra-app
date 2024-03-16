@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.main');
+
+});
+
+Route::get('/pengajuan', function () {
+    return view('PengajuanCuti.pengajuan');
+
 });
 
 Route::get('/dashboard', function () {
