@@ -36,38 +36,47 @@
           </a>
         </li>
         <li class="nav-header">AJUKAN</li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Pegajuan Cuti
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Izin Penelitian
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Praktek Kerja Lapangan
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Surat Aktif
-            </p>
-          </a>
-        </li>
+        @if (auth()->user()->hasRole('dosen'))
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Pegajuan Cuti
+              </p>
+            </a>
+          </li>
+        @endif
+        @if (auth()->user()->hasRole('mahasiswa'))
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Izin Penelitian
+              </p>
+            </a>
+          </li>
+        @endif
+        @if (auth()->user()->hasRole('mahasiswa'))
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Praktek Kerja Lapangan
+              </p>
+            </a>
+          </li>
+        @endif
+        @if (auth()->user()->hasRole('mahasiswa'))
+          <li class="nav-item">
+            <a href="{{ route('mahasiswaaktif.create') }}"
+              class="nav-link {{ request()->routeIs('mahasiswaktif.create') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Surat Aktif
+              </p>
+            </a>
+          </li>
+        @endif
         <li class="nav-header">SURAT</li>
         <li class="nav-item">
           <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
@@ -94,7 +103,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+          <a href="{{ route('mahasiswaaktif.index') }}"
+            class="nav-link {{ request()->routeIs('mahasiswaaktif.index') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Surat Mahasiswa Aktif

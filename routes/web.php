@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MahasiswaAktifController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.main');
+    return view('welcome');
 
 });
 
@@ -25,7 +26,7 @@ Route::get('/pengajuan', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('pages.main');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -33,5 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+/*
+    Routes mahasiswaaktif
+*/
+Route::resource('mahasiswaaktif', MahasiswaAktifController::class)->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::patch('/mahasiswaaktif/{mahasiswaaktif}/approve', [MahasiswaAktifController::class, 'approve'])->name('mahasiswaaktif.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::patch('/mahasiswaaktif/{mahasiswaaktif}/reject', [MahasiswaAktifController::class, 'reject'])->name('mahasiswaaktif.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::get('/mahasiswaaktif/{mahasiswaaktif}/cetak', [MahasiswaAktifController::class, 'cetak'])->name('mahasiswaaktif.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
 
 require __DIR__ . '/auth.php';
