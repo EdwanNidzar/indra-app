@@ -15,14 +15,21 @@ class MahasiswaAktifController extends Controller
      */
     public function index()
     {
-    $mahasiswaaktif = DB::table('mahasiswa_aktifs')
-        ->join('users', 'mahasiswa_aktifs.user_id', '=', 'users.id')
-        ->select('mahasiswa_aktifs.*', 'users.name')
-        ->get();
-        // return $mahasiswaaktif;
-      return view('mahasiswaaktif.index', compact('mahasiswaaktif'));
+        if (Auth::user()->hasRole('karyawan-operator')) {
+            $mahasiswaaktif = DB::table('mahasiswa_aktifs')
+                ->join('users', 'mahasiswa_aktifs.user_id', '=', 'users.id')
+                ->select('mahasiswa_aktifs.*', 'users.name')
+                ->get();
+            return view('mahasiswaaktif.index', compact('mahasiswaaktif'));
+        } else {
+            $mahasiswaaktif = DB::table('mahasiswa_aktifs')
+                ->join('users', 'mahasiswa_aktifs.user_id', '=', 'users.id')
+                ->select('mahasiswa_aktifs.*', 'users.name')
+                ->where('mahasiswa_aktifs.user_id', Auth::user()->id)
+                ->get();
+            return view('mahasiswaaktif.index', compact('mahasiswaaktif'));
+        }
     }
-
     /**
      * Generate nomor surat
      */
