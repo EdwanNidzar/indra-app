@@ -6,6 +6,7 @@ use App\Http\Controllers\MahasiswaAktifController;
 use App\Http\Controllers\PenelitianController;
 use App\Http\Controllers\PKLController;
 use App\Http\Controllers\CutiController;
+use App\Http\Controllers\SuratKeluar;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,17 +20,12 @@ use App\Http\Controllers\CutiController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-
-});
-
-Route::get('/pengajuan', function () {
-    return view('PengajuanCuti.pengajuan');
+    return view('auth.login');
 
 });
 
 Route::get('/dashboard', function () {
-    return view('pages.main');
+    return view('utama');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -69,5 +65,8 @@ Route::resource('cuti', CutiController::class)->middleware(['auth', 'verified', 
 Route::patch('/cuti/{cuti}/approve', [CutiController::class, 'approve'])->name('cuti.approve')->middleware(['auth', 'verified', 'role:dosen']);
 Route::patch('/cuti/{cuti}/reject', [CutiController::class, 'reject'])->name('cuti.reject')->middleware(['auth', 'verified', 'role:dosen']);
 Route::get('/cuti/{cuti}/cetak', [CutiController::class, 'cetak'])->name('cuti.cetak')->middleware(['auth', 'verified', 'role:dosen']);
+
+
+Route::get('/suratkeluar/cetak', [SuratKeluar::class, 'cetak'])->name('suratkeluar.cetak');
 
 require __DIR__ . '/auth.php';

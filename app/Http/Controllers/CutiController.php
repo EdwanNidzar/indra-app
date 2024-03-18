@@ -189,4 +189,25 @@ class CutiController extends Controller
             return redirect()->route('cuti.index')->with('error', 'Data gagal dihapus');
         }
     }
+
+    public function cetak(string $id)
+    {
+        $cuti = DB::table('cutis')
+            ->join('users', 'cutis.user_id', '=', 'users.id')
+            ->select('cutis.*', 'users.name')
+            ->where('cutis.id', $id)
+            ->first();
+        
+            $data = [
+                'cuti' => $cuti,
+                'tanggal' => date('d F Y'),
+                'judul' => 'Surat Pernyataan Cuti',
+            ];
+    
+            // Load the PDF view and pass the $data variable
+            $pdf = PDF::loadView('cuti.report', $data);
+        
+            // Return the PDF for download
+            return $pdf->stream('Surat_Penyataan Cuti.pdf');
+        }
 }

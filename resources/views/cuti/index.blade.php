@@ -2,7 +2,7 @@
 @extends('pages.main')
 
 <!-- isi bagian judul halaman -->
-@section('judul_halaman', 'Penganjuan Cuti')
+@section('judul_halaman', 'Pengajuan Cuti')
 
 <!-- isi bagian konten -->
 @section('konten')
@@ -40,7 +40,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-              <li class="breadcrumb-item active">Penganjuan Cuti</li>
+              <li class="breadcrumb-item active">Pengajuan Cuti</li>
             </ol>
           </div>
         </div><!-- /.container-fluid -->
@@ -91,7 +91,7 @@
                             <a href="{{ route('cuti.show', $c->id) }}" class="btn btn-light m-2"><i
                                 class="fas fa-eye"></i></a> <br>
                             @if ($c->status == 'approve')
-                              <a href="{{ route('cuti.cetak', $c->id) }}" class="btn btn-success m-2"><i
+                              <a href="{{ route('cuti.cetak', $c->id) }}" target="_blank" class="btn btn-success m-2"><i
                                   class="fas fa-print"></i></a> <br>
                             @endif
                             @if ($c->status == 'pending')
