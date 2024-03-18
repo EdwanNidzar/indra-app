@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaAktifController;
+use App\Http\Controllers\PenelitianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,5 +43,13 @@ Route::resource('mahasiswaaktif', MahasiswaAktifController::class)->middleware([
 Route::patch('/mahasiswaaktif/{mahasiswaaktif}/approve', [MahasiswaAktifController::class, 'approve'])->name('mahasiswaaktif.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
 Route::patch('/mahasiswaaktif/{mahasiswaaktif}/reject', [MahasiswaAktifController::class, 'reject'])->name('mahasiswaaktif.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
 Route::get('/mahasiswaaktif/{mahasiswaaktif}/cetak', [MahasiswaAktifController::class, 'cetak'])->name('mahasiswaaktif.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
+
+/*
+    Routes penelitian
+*/
+Route::resource('penelitian', PenelitianController::class)->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::patch('/penelitian/{penelitian}/approve', [PenelitianController::class, 'approve'])->name('penelitian.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::patch('/penelitian/{penelitian}/reject', [PenelitianController::class, 'reject'])->name('penelitian.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::get('/penelitian/{penelitian}/cetak', [PenelitianController::class, 'cetak'])->name('penelitian.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
 
 require __DIR__ . '/auth.php';

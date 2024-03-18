@@ -48,7 +48,8 @@
         @endif
         @if (auth()->user()->hasRole('mahasiswa'))
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+            <a href="{{ route('penelitian.create') }}"
+              class="nav-link {{ request()->routeIs('penelitian.create') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Izin Penelitian
@@ -87,7 +88,8 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+          <a href="{{ route('penelitian.index') }}"
+            class="nav-link {{ request()->routeIs('penelitian.index') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Surat Izin Penelitian
