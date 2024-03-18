@@ -39,10 +39,10 @@ Route::middleware('auth')->group(function () {
 /*
     Routes mahasiswaaktif
 */
-Route::resource('mahasiswaaktif', MahasiswaAktifController::class)->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::patch('/mahasiswaaktif/{mahasiswaaktif}/approve', [MahasiswaAktifController::class, 'approve'])->name('mahasiswaaktif.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::patch('/mahasiswaaktif/{mahasiswaaktif}/reject', [MahasiswaAktifController::class, 'reject'])->name('mahasiswaaktif.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::get('/mahasiswaaktif/{mahasiswaaktif}/cetak', [MahasiswaAktifController::class, 'cetak'])->name('mahasiswaaktif.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::resource('mahasiswaaktif', MahasiswaAktifController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
+Route::patch('/mahasiswaaktif/{mahasiswaaktif}/approve', [MahasiswaAktifController::class, 'approve'])->name('mahasiswaaktif.approve')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
+Route::patch('/mahasiswaaktif/{mahasiswaaktif}/reject', [MahasiswaAktifController::class, 'reject'])->name('mahasiswaaktif.reject')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
+Route::get('/mahasiswaaktif/{mahasiswaaktif}/cetak', [MahasiswaAktifController::class, 'cetak'])->name('mahasiswaaktif.cetak')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
 
 /*
     Routes penelitian
