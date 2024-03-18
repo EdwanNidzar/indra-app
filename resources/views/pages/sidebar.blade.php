@@ -38,7 +38,8 @@
         <li class="nav-header">AJUKAN</li>
         @if (auth()->user()->hasRole('dosen'))
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+            <a href="{{ route('cuti.create') }}"
+              class="nav-link {{ request()->routeIs('cuti.create') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Pegajuan Cuti

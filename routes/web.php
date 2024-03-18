@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaAktifController;
 use App\Http\Controllers\PenelitianController;
 use App\Http\Controllers\PKLController;
+use App\Http\Controllers\CutiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,12 +55,19 @@ Route::patch('/penelitian/{penelitian}/reject', [PenelitianController::class, 'r
 Route::get('/penelitian/{penelitian}/cetak', [PenelitianController::class, 'cetak'])->name('penelitian.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
 
 /*
-    Routes penelitian
+    Routes pkl
 */
 Route::resource('pkl', PKLController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
 Route::patch('/pkl/{pkl}/approve', [PKLController::class, 'approve'])->name('pkl.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
 Route::patch('/pkl/{pkl}/reject', [PKLController::class, 'reject'])->name('pkl.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
 Route::get('/pkl/{pkl}/cetak', [PKLController::class, 'cetak'])->name('pkl.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
 
+/*
+    Routes cuti
+*/
+Route::resource('cuti', CutiController::class)->middleware(['auth', 'verified', 'role:dosen']);
+Route::patch('/cuti/{cuti}/approve', [CutiController::class, 'approve'])->name('cuti.approve')->middleware(['auth', 'verified', 'role:dosen']);
+Route::patch('/cuti/{cuti}/reject', [CutiController::class, 'reject'])->name('cuti.reject')->middleware(['auth', 'verified', 'role:dosen']);
+Route::get('/cuti/{cuti}/cetak', [CutiController::class, 'cetak'])->name('cuti.cetak')->middleware(['auth', 'verified', 'role:dosen']);
 
 require __DIR__ . '/auth.php';
