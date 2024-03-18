@@ -57,5 +57,9 @@ Route::get('/penelitian/{penelitian}/cetak', [PenelitianController::class, 'ceta
     Routes penelitian
 */
 Route::resource('pkl', PKLController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
+Route::patch('/pkl/{pkl}/approve', [PKLController::class, 'approve'])->name('pkl.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::patch('/pkl/{pkl}/reject', [PKLController::class, 'reject'])->name('pkl.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::get('/pkl/{pkl}/cetak', [PKLController::class, 'cetak'])->name('pkl.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
+
 
 require __DIR__ . '/auth.php';

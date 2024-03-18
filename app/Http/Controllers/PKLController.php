@@ -29,9 +29,9 @@ class PKLController extends Controller
                 ->get();
         }
 
-        return $pkl;
+        // return $pkl;
         
-        // return view('pkl.index', compact('pkl'));
+        return view('pkl.index', compact('pkl'));
     }
 
     /**
@@ -119,20 +119,20 @@ class PKLController extends Controller
             'lama_pkl' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
-            'bukti_pembayaran' => 'required|file|mimes:pdf|max:2048',
-            'surat_pernyataan' => 'required|file|mimes:pdf|max:2048',
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'surat_pernyataan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'tempat_pkl.required' => 'Tempat PKL wajib diisi',
             'lama_pkl.required' => 'Lama PKL wajib diisi',
             'tanggal_mulai.required' => 'Tanggal mulai wajib diisi',
             'tanggal_selesai.required' => 'Tanggal selesai wajib diisi',
             'bukti_pembayaran.required' => 'Bukti pembayaran wajib diisi',
-            'bukti_pembayaran.file' => 'Bukti pembayaran harus berupa file',
-            'bukti_pembayaran.mimes' => 'Bukti pembayaran harus berupa file PDF',
+            'bukti_pembayaran.image' => 'Bukti pembayaran harus berupa file gambar',
+            'bukti_pembayaran.mimes' => 'Bukti pembayaran harus berupa file JPEG, PNG, JPG, GIF',
             'bukti_pembayaran.max' => 'Bukti pembayaran maksimal 2MB',
             'surat_pernyataan.required' => 'Surat pernyataan wajib diisi',
-            'surat_pernyataan.file' => 'Surat pernyataan harus berupa file',
-            'surat_pernyataan.mimes' => 'Surat pernyataan harus berupa file PDF',
+            'surat_pernyataan.image' => 'Surat pernyataan harus berupa file gambar',
+            'surat_pernyataan.mimes' => 'Surat pernyataan harus berupa file JPEG, PNG, JPG, GIF',
             'surat_pernyataan.max' => 'Surat pernyataan maksimal 2MB',
         ]);
     
@@ -163,13 +163,47 @@ class PKLController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Approve the specified resource from storage.
+     */
+    public function approve(string $id)
+    {
+        $pkl = PKL::find($id);
+        $pkl->status = 'approve';
+        if($pkl->save()) {
+            return redirect()->route('pkl.index')->with('success', 'Data berhasil disetujui');
+        } else {
+            return redirect()->route('pkl.index')->with('error', 'Data gagal disetujui');
+        }
+    }
+
+    /**
+     * Reject the specified resource from storage.
+     */
+    public function reject(string $id)
+    {
+        $pkl = PKL::find($id);
+        $pkl->status = 'reject';
+        if($pkl->save()) {
+            return redirect()->route('pkl.index')->with('success', 'Data berhasil ditolak');
+        } else {
+            return redirect()->route('pkl.index')->with('error', 'Data gagal ditolak');
+        }
+    }
     
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $data = DB::table('pkls')
+            ->join('users', 'pkls.user_id', '=', 'users.id')
+            ->select('pkls.*', 'users.name')
+            ->where('pkls.id', $id)
+            ->first();
+        
+        return view('pkl.show', compact('data'));
     }
 
     /**
@@ -177,7 +211,8 @@ class PKLController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = PKL::findorfail($id);
+        return view('pkl.edit', compact('data'));
     }
 
     /**
@@ -185,7 +220,53 @@ class PKLController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pkl = PKL::findorfail($id);
+
+        $request->validate([
+            'tempat_pkl' => 'required',
+            'lama_pkl' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'surat_pernyataan' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'tempat_pkl.required' => 'Tempat PKL wajib diisi',
+            'lama_pkl.required' => 'Lama PKL wajib diisi',
+            'tanggal_mulai.required' => 'Tanggal mulai wajib diisi',
+            'tanggal_selesai.required' => 'Tanggal selesai wajib diisi',
+            'bukti_pembayaran.required' => 'Bukti pembayaran wajib diisi',
+            'bukti_pembayaran.image' => 'Bukti pembayaran harus berupa file gambar',
+            'bukti_pembayaran.mimes' => 'Bukti pembayaran harus berupa file JPEG, PNG, JPG, GIF',
+            'bukti_pembayaran.max' => 'Bukti pembayaran maksimal 2MB',
+            'surat_pernyataan.required' => 'Surat pernyataan wajib diisi',
+            'surat_pernyataan.image' => 'Surat pernyataan harus berupa file gambar',
+            'surat_pernyataan.mimes' => 'Surat pernyataan harus berupa file JPEG, PNG, JPG, GIF',
+            'surat_pernyataan.max' => 'Surat pernyataan maksimal 2MB',
+        ]);
+
+        $pkl->nomor_surat = $request->nomor_surat;
+        $pkl->tempat_pkl = $request->tempat_pkl;
+        $pkl->lama_pkl = $request->lama_pkl;
+        $pkl->tanggal_mulai = $request->tanggal_mulai;
+        $pkl->tanggal_selesai = $request->tanggal_selesai;
+        
+        // Upload bukti pembayaran
+        $uploadBuktiPembayaran = $this->uploadBuktiPembayaran($request);
+        $pkl->bukti_pembayaran = $uploadBuktiPembayaran->getSecurePath();
+
+        // Upload surat pernyataan
+        $uploadSuratPernyatan = $this->uploadSuratPernyatan($request);
+        $pkl->surat_pernyataan = $uploadSuratPernyatan->getSecurePath();
+
+        $pkl->status = 'pending';
+
+        $pkl->user_id = Auth::user()->id;
+
+        if($pkl->update()) {
+            return redirect()->route('pkl.index')->with('success', 'Data berhasil diubah');
+        } else {
+            return redirect()->route('pkl.index')->with('error', 'Data gagal diubah');
+        }
     }
 
     /**
@@ -193,6 +274,11 @@ class PKLController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pkl = PKL::findorfail($id);
+        if($pkl->delete()) {
+            return redirect()->route('pkl.index')->with('success', 'Data berhasil dihapus');
+        } else {
+            return redirect()->route('pkl.index')->with('error', 'Data gagal dihapus');
+        }
     }
 }

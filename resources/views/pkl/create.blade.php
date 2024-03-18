@@ -89,7 +89,8 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="bukti_pembayaran">Bukti Pembayaran</label>
-                            <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control">
+                            <input type="file" accept="image/*" name="bukti_pembayaran" id="bukti_pembayaran"
+                              class="form-control">
                             @error('bukti_pembayaran')
                               <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -98,7 +99,8 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="surat_pernyataan">Surat Pernyataan</label>
-                            <input type="file" name="surat_pernyataan" id="surat_pernyataan" class="form-control">
+                            <input type="file" accept="image/*" name="surat_pernyataan" id="surat_pernyataan"
+                              class="form-control">
                             @error('surat_pernyataan')
                               <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror

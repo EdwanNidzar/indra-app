@@ -11,7 +11,7 @@
   <!-- Normalize or reset CSS with your favorite library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <!-- Load paper.css for happy printing -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css"> --}}
 
   <!-- Set page size here: A5, A4 or A3 -->
   <!-- Set also "landscape" if you need -->
@@ -29,7 +29,7 @@
     }
 
     .sheet {
-      padding: 15mm;
+      padding: 7mm;
     }
 
     .header {
@@ -84,43 +84,47 @@
     <!-- Header/Kop Surat -->
     <div class="header">
       <!-- Logo -->
-      <img src="https://res.cloudinary.com/ddfstaduo/image/upload/v1710150091/logo/logo-bawaslu_re8djo.png"
-        alt="Logo BAWASLU" style="width: 90px; height: auto; float: left; margin-right: 30px;">
+      <img
+        src="https://res.cloudinary.com/dsfa0agbi/image/upload/v1710781601/STIEI/Logo%20Report/biivo3g7noztjetmhycj.png"
+        alt="Logo STIE" style="width: 100px; height: auto; float: left; margin-right: 15px;">
       <!-- Informasi Organisasi -->
-      <div class="left-align">
-        <h2 style="margin: 0; font-size: 18px;"><b>Badan Pengawas Pemilihan Umum Provinsi Kalimantan Selatan</b></h2>
-        <p style="margin: 5px 0;">Jl. RE Martadinata No.3, Kertak Baru Ilir, Kec. Banjarmasin Tengah,</p>
-        <p style="margin: 5px 0;">Kota Banjarmasin, Kalimantan Selatan 70231</p>
-        <p style="margin: 5px 0;">Telepon: (0511) 6726 437 | Email: set.kalsel@gmail.go.id</p>
+      <div class="center-align">
+        <h6 style="margin: 7px; font-size: 13px"><b>Yayasan Lembaga Pendidikan Kejuruan Nasional Indonesia (YLPKN)
+            Banjarmasin</b></h6>
+        <h1 style="margin: 1px; font-size: 22px;"><b>SEKOLAH TINGGI ILMU EKONOMI INDONESIA (STIE INDONESIA)
+            BANJARMASIN</b></h1>
+        <h6 style="margin: 1px; font-size: 10px;">Prodi S1 Manajemen Terakreditasi, Prodi S1 Akuntan Terakreditasi ,
+          Prodi S2 Magister Manajemen Terakreditasi</h6>
+
       </div>
       <!-- Clearfix untuk mengatasi float -->
       <div style="clear: both;"></div>
       <br>
-      <hr style="border-top: 3px solid black; margin-top: 10px; margin-bottom: 10px;">
+      <hr style="border-top: 3px solid black; margin-top: 0px; margin-bottom: 10px;">
     </div>
 
-    <h1 style="text-align: center;">{{ $judul }}</h1>
-    <h3 style="text-align: center;">{{ $mahasiswaaktif->nomor_surat }}</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="text-center align-middle">Nama Mahasiswa</th>
-          <th class="text-center align-middle">Tujuan Surat</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center align-middle">{{ $mahasiswaaktif->name }}</td>
-          <td class="text-center align-middle">{{ $mahasiswaaktif->tujuan_surat }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h1 style="text-align: center; margin-bottom: 0px; text-decoration: underline;">{{ $judul }}</h1>
+    <h3 style="text-align: center; margin-top: 0px;">{{ $mahasiswaaktif->nomor_surat }}</h3>
+
+    <div class="content">
+      <p>Sekolah Tinggi Ilmu Ekonomi Indonesia (STIE Indonesia) Banjarmasin, Menerangkan Bahwa :</p>
+      <p>Nama : <b>{{ $mahasiswaaktif->name }}.</b></p>
+
+      <p>Adalah Mahasiswa Aktif di Sekolah Tinggi Ilmu Ekonomi Indonesia (STIE Indonesia) Banjarmasin.</p>
+      <p>Surat keterangan ini diberikan untuk keperluan <b>"{{ $mahasiswaaktif->tujuan_surat }}"</b>.</p>
+
+      <p>Demikian Surat Keterangan ini diberikan agar dipergunakan sebagaimana mestinya.</p>
+
+    </div>
+
     <div style="margin-top: 20px;">
       <div class="left-align" style="float: right; width: 45%;">
         <p>
           Banjarmasin, {{ $tanggal }}
           <br>Mengetahui
         </p>
+        <br>
+        <br>
         <p class="left-align">
           <b><u>INI NAMA, Ini Gelar</u></b>
         </p>
