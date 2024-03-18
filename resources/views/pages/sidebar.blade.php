@@ -59,7 +59,7 @@
         @endif
         @if (auth()->user()->hasRole('mahasiswa'))
           <li class="nav-item">
-            <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+            <a href="{{ route('pkl.create') }}" class="nav-link {{ request()->routeIs('pkl.create') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Praktek Kerja Lapangan

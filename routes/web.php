@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaAktifController;
 use App\Http\Controllers\PenelitianController;
+use App\Http\Controllers\PKLController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +52,10 @@ Route::resource('penelitian', PenelitianController::class)->middleware(['auth', 
 Route::patch('/penelitian/{penelitian}/approve', [PenelitianController::class, 'approve'])->name('penelitian.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
 Route::patch('/penelitian/{penelitian}/reject', [PenelitianController::class, 'reject'])->name('penelitian.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
 Route::get('/penelitian/{penelitian}/cetak', [PenelitianController::class, 'cetak'])->name('penelitian.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
+
+/*
+    Routes penelitian
+*/
+Route::resource('pkl', PKLController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
 
 require __DIR__ . '/auth.php';
