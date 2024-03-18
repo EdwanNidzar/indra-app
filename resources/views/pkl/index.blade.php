@@ -105,7 +105,7 @@
                             <a href="{{ route('pkl.show', $p->id) }}" class="btn btn-light m-2"><i
                                 class="fas fa-eye"></i></a> <br>
                             @if ($p->status == 'approve')
-                              <a href="{{ route('pkl.cetak', $p->id) }}" class="btn btn-success m-2"><i
+                              <a href="{{ route('pkl.cetak', $p->id) }}" target="_blank" class="btn btn-success m-2"><i
                                   class="fas fa-print"></i></a> <br>
                             @endif
                             @if ($p->status == 'pending')

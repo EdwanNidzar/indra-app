@@ -98,7 +98,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link {{ request()->routeIs('#') ? 'active' : '' }}">
+          <a href="{{ route('pkl.index') }}" class="nav-link {{ request()->routeIs('pkl.index') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Surat PKL

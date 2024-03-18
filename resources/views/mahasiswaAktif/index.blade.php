@@ -87,8 +87,8 @@
                             <a href="{{ route('mahasiswaaktif.show', $mhs->id) }}" class="btn btn-light m-2"><i
                                 class="fas fa-eye"></i></a> <br>
                             @if ($mhs->status == 'approve')
-                              <a href="{{ route('mahasiswaaktif.cetak', $mhs->id) }}" class="btn btn-success m-2"><i
-                                  class="fas fa-print"></i></a> <br>
+                              <a href="{{ route('mahasiswaaktif.cetak', $mhs->id) }}" target="_blank"
+                                class="btn btn-success m-2"><i class="fas fa-print"></i></a> <br>
                             @endif
                             @if ($mhs->status == 'pending')
                               <a href="{{ route('mahasiswaaktif.edit', $mhs->id) }}" class="btn btn-warning m-2"><i

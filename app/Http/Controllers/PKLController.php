@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\PKL;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Log;
+use PDF;
 
 class PKLController extends Controller
 {
@@ -280,5 +281,26 @@ class PKLController extends Controller
         } else {
             return redirect()->route('pkl.index')->with('error', 'Data gagal dihapus');
         }
+    }
+
+    public function cetak($id)
+    {
+        $pkl = DB::table('pkls')
+            ->join('users', 'pkls.user_id', '=', 'users.id')
+            ->select('pkls.*', 'users.name')
+            ->where('pkls.id', $id)
+            ->first(); 
+    
+        $data = [
+            'pkl' => $pkl,
+            'tanggal' => date('d F Y'),
+            'judul' => 'Surat PKL',
+        ];
+
+        // Load the PDF view and pass the $data variable
+        $pdf = PDF::loadView('pkl.report', $data);
+    
+        // Return the PDF for download
+        return $pdf->stream('Surat_Praktek_Kerja_Lapangan.pdf');
     }
 }

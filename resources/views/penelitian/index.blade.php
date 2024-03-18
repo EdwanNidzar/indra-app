@@ -93,8 +93,8 @@
                             <a href="{{ route('penelitian.show', $p->id) }}" class="btn btn-light m-2"><i
                                 class="fas fa-eye"></i></a> <br>
                             @if ($p->status == 'approve')
-                              <a href="{{ route('penelitian.cetak', $p->id) }}" class="btn btn-success m-2"><i
-                                  class="fas fa-print"></i></a> <br>
+                              <a href="{{ route('penelitian.cetak', $p->id) }}" target="_blank"
+                                class="btn btn-success m-2"><i class="fas fa-print"></i></a> <br>
                             @endif
                             @if ($p->status == 'pending')
                               <a href="{{ route('penelitian.edit', $p->id) }}" class="btn btn-warning m-2"><i

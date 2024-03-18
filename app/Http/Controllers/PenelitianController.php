@@ -198,4 +198,26 @@ class PenelitianController extends Controller
             return redirect()->route('penelitian.index')->with('error', 'Data gagal dihapus');
         }
     }
+
+    public function cetak($id)
+    {
+        $penelitian = DB::table('penelitians')
+            ->join('users', 'penelitians.user_id', '=', 'users.id')
+            ->select('penelitians.*', 'users.name')
+            ->where('penelitians.id', $id)
+            ->first();
+
+            $data = [
+                'penelitian' => $penelitian,
+                'tanggal' => date('d F Y'),
+                'judul' => 'Surat Penelitian',
+            ];
+    
+            // Load the PDF view and pass the $data variable
+            $pdf = PDF::loadView('penelitian.report', $data);
+        
+            // Return the PDF for download
+            return $pdf->stream('Surat_Penelitian.pdf');
+
+    }
 }
