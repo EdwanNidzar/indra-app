@@ -30,69 +30,87 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Mahasiswa Aktif</h3>
+          @if (auth()->user()->hasRole('mahasiswa') ||
+                  auth()->user()->hasRole('karyawan-operator') ||
+                  auth()->user()->hasRole('karyawan-admin'))
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>Mahasiswa Aktif</h3>
 
-                <p>Buat Pengajuan</p>
+                  <p>Buat Pengajuan</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{{ route('mahasiswaaktif.create') }}" class="small-box-footer">Buat Ajuan <i
+                    class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="{{ route('mahasiswaaktif.create') }}" class="small-box-footer">Buat Ajuan <i
-                  class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
+          @endif
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Penelitian</h3>
+          @if (auth()->user()->hasRole('mahasiswa') ||
+                  auth()->user()->hasRole('karyawan-operator') ||
+                  auth()->user()->hasRole('karyawan-admin'))
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>Penelitian</h3>
 
-                <p>Buat Pengajuan</p>
+                  <p>Buat Pengajuan</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{{ route('penelitian.create') }}" class="small-box-footer">Buat Ajuan <i
+                    class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="{{ route('penelitian.create') }}" class="small-box-footer">Buat Ajuan <i
-                  class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
+          @endif
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>PKL</h3>
+          @if (auth()->user()->hasRole('mahasiswa') ||
+                  auth()->user()->hasRole('karyawan-operator') ||
+                  auth()->user()->hasRole('karyawan-admin'))
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>PKL</h3>
 
-                <p>Buat Ajuan</p>
+                  <p>Buat Ajuan</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{{ route('pkl.create') }}" class="small-box-footer">Buat Ajuan <i
+                    class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="{{ route('pkl.create') }}" class="small-box-footer">Buat Ajuan <i
-                  class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
+          @endif
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>Cuti</h3>
+          @if (auth()->user()->hasRole('dosen') ||
+                  auth()->user()->hasRole('dosen-yayasan') ||
+                  auth()->user()->hasRole('dosen-pns') ||
+                  auth()->user()->hasRole('karyawan-operator') ||
+                  auth()->user()->hasRole('karyawan-admin'))
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>Cuti</h3>
 
-                <p>Buat Pengajuan</p>
+                  <p>Buat Pengajuan</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{{ route('cuti.create') }}" class="small-box-footer">Buat Ajuan <i
+                    class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="{{ route('cuti.create') }}" class="small-box-footer">Buat Ajuan <i
-                  class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
+          @endif
           <!-- ./col -->
         </div>
         <!-- /.row -->

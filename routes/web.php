@@ -37,36 +37,38 @@ Route::middleware('auth')->group(function () {
 /*
     Routes mahasiswaaktif
 */
-Route::resource('mahasiswaaktif', MahasiswaAktifController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
-Route::patch('/mahasiswaaktif/{mahasiswaaktif}/approve', [MahasiswaAktifController::class, 'approve'])->name('mahasiswaaktif.approve')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
-Route::patch('/mahasiswaaktif/{mahasiswaaktif}/reject', [MahasiswaAktifController::class, 'reject'])->name('mahasiswaaktif.reject')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
-Route::get('/mahasiswaaktif/{mahasiswaaktif}/cetak', [MahasiswaAktifController::class, 'cetak'])->name('mahasiswaaktif.cetak')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
+Route::resource('mahasiswaaktif', MahasiswaAktifController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::patch('/mahasiswaaktif/{mahasiswaaktif}/approve', [MahasiswaAktifController::class, 'approve'])->name('mahasiswaaktif.approve')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::patch('/mahasiswaaktif/{mahasiswaaktif}/reject', [MahasiswaAktifController::class, 'reject'])->name('mahasiswaaktif.reject')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::get('/mahasiswaaktif/{mahasiswaaktif}/cetak', [MahasiswaAktifController::class, 'cetak'])->name('mahasiswaaktif.cetak')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
 
 /*
     Routes penelitian
 */
-Route::resource('penelitian', PenelitianController::class)->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::patch('/penelitian/{penelitian}/approve', [PenelitianController::class, 'approve'])->name('penelitian.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::patch('/penelitian/{penelitian}/reject', [PenelitianController::class, 'reject'])->name('penelitian.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::get('/penelitian/{penelitian}/cetak', [PenelitianController::class, 'cetak'])->name('penelitian.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::resource('penelitian', PenelitianController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::patch('/penelitian/{penelitian}/approve', [PenelitianController::class, 'approve'])->name('penelitian.approve')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::patch('/penelitian/{penelitian}/reject', [PenelitianController::class, 'reject'])->name('penelitian.reject')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::get('/penelitian/{penelitian}/cetak', [PenelitianController::class, 'cetak'])->name('penelitian.cetak')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
 
 /*
     Routes pkl
 */
-Route::resource('pkl', PKLController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-operator']);
-Route::patch('/pkl/{pkl}/approve', [PKLController::class, 'approve'])->name('pkl.approve')->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::patch('/pkl/{pkl}/reject', [PKLController::class, 'reject'])->name('pkl.reject')->middleware(['auth', 'verified', 'role:mahasiswa']);
-Route::get('/pkl/{pkl}/cetak', [PKLController::class, 'cetak'])->name('pkl.cetak')->middleware(['auth', 'verified', 'role:mahasiswa']);
+Route::resource('pkl', PKLController::class)->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::patch('/pkl/{pkl}/approve', [PKLController::class, 'approve'])->name('pkl.approve')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::patch('/pkl/{pkl}/reject', [PKLController::class, 'reject'])->name('pkl.reject')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
+Route::get('/pkl/{pkl}/cetak', [PKLController::class, 'cetak'])->name('pkl.cetak')->middleware(['auth', 'verified', 'role:mahasiswa|karyawan-admin|karyawan-operator']);
 
 /*
     Routes cuti
 */
-Route::resource('cuti', CutiController::class)->middleware(['auth', 'verified', 'role:dosen']);
-Route::patch('/cuti/{cuti}/approve', [CutiController::class, 'approve'])->name('cuti.approve')->middleware(['auth', 'verified', 'role:dosen']);
-Route::patch('/cuti/{cuti}/reject', [CutiController::class, 'reject'])->name('cuti.reject')->middleware(['auth', 'verified', 'role:dosen']);
-Route::get('/cuti/{cuti}/cetak', [CutiController::class, 'cetak'])->name('cuti.cetak')->middleware(['auth', 'verified', 'role:dosen']);
+Route::resource('cuti', CutiController::class)->middleware(['auth', 'verified', 'role:dosen|dosen-yayasan|dosen-pns|karyawan-admin|karyawan-operator']);
+Route::patch('/cuti/{cuti}/approve', [CutiController::class, 'approve'])->name('cuti.approve')->middleware(['auth', 'verified', 'role:dosen|dosen-yayasan|dosen-pns|karyawan-admin|karyawan-operator']);
+Route::patch('/cuti/{cuti}/reject', [CutiController::class, 'reject'])->name('cuti.reject')->middleware(['auth', 'verified', 'role:dosen|dosen-yayasan|dosen-pns|karyawan-admin|karyawan-operator']);
+Route::get('/cuti/{cuti}/cetak', [CutiController::class, 'cetak'])->name('cuti.cetak')->middleware(['auth', 'verified', 'role:dosen|dosen-yayasan|dosen-pns|karyawan-admin|karyawan-operator']);
 
-
+/*
+    Routes cuti
+*/
 Route::get('/suratkeluar/cetak', [SuratKeluar::class, 'cetak'])->name('suratkeluar.cetak');
 
 require __DIR__ . '/auth.php';

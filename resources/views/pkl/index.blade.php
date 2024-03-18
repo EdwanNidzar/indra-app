@@ -111,19 +111,21 @@
                             @if ($p->status == 'pending')
                               <a href="{{ route('pkl.edit', $p->id) }}" class="btn btn-warning m-2"><i
                                   class="fas fa-edit"></i></a> <br>
-                              <form action="{{ route('pkl.approve', $p->id) }}" method="post"
-                                onsubmit="return confirm('Apakah yakin menyetujui data ini?')">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-primary m-2" name="status" value="approve"><i
-                                    class="fas fa-check"></i></button>
-                              </form>
-                              <form action="{{ route('pkl.reject', $p->id) }}" method="post"
-                                onsubmit="return confirm('Apakah yakin menolak data ini?)">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-danger m-2"><i class="fas fa-times"></i></button>
-                              </form>
+                              @if (Auth::user()->hasRole('karyawan-operator') || Auth::user()->hasRole('karyawan-admin'))
+                                <form action="{{ route('pkl.approve', $p->id) }}" method="post"
+                                  onsubmit="return confirm('Apakah yakin menyetujui data ini?')">
+                                  @csrf
+                                  @method('PATCH')
+                                  <button type="submit" class="btn btn-primary m-2" name="status" value="approve"><i
+                                      class="fas fa-check"></i></button>
+                                </form>
+                                <form action="{{ route('pkl.reject', $p->id) }}" method="post"
+                                  onsubmit="return confirm('Apakah yakin menolak data ini?)">
+                                  @csrf
+                                  @method('PATCH')
+                                  <button type="submit" class="btn btn-danger m-2"><i class="fas fa-times"></i></button>
+                                </form>
+                              @endif
                               <form action="{{ route('pkl.destroy', $p->id) }}" method="POST"
                                 onsubmit="return confirm('Apakah yakin menghapus data ini?')" class="d-inline">
                                 @csrf

@@ -12,7 +12,6 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => 'karyawan']);
         Role::create(['name' => 'karyawan-operator']);
         Role::create(['name' => 'karyawan-admin']);
         Role::create(['name' => 'dosen']);

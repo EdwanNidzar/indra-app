@@ -15,7 +15,7 @@ class MahasiswaAktifController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('karyawan-operator')) {
+        if (Auth::user()->hasRole('karyawan-operator') || Auth::user()->hasRole('karyawan-admin')) {
             $mahasiswaaktif = DB::table('mahasiswa_aktifs')
                 ->join('users', 'mahasiswa_aktifs.user_id', '=', 'users.id')
                 ->select('mahasiswa_aktifs.*', 'users.name')

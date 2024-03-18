@@ -15,14 +15,20 @@ class PenelitianController extends Controller
      */
     public function index()
     {
-        $penelitian = DB::table('penelitians')
-            ->join('users', 'penelitians.user_id', '=', 'users.id')
-            ->select('penelitians.*', 'users.name')
-            ->get();
-    
-        return view('penelitian.index', compact('penelitian'));
+        if (Auth::user()->hasRole('karyawan-operator') || Auth::user()->hasRole('karyawan-admin')) {
+            $penelitian = DB::table('penelitians')
+                ->join('users', 'penelitians.user_id', '=', 'users.id')
+                ->select('penelitians.*', 'users.name')
+                ->get();
+        } else {
+            $penelitian = DB::table('penelitians')
+                ->join('users', 'penelitians.user_id', '=', 'users.id')
+                ->select('penelitians.*', 'users.name')
+                ->where('penelitians.user_id', Auth::user()->id)
+                ->get();
+        }
 
-        // return $penelitian;
+        return view('penelitian.index', compact('penelitian'));
     }
 
     /**

@@ -92,20 +92,21 @@
                             @endif
                             @if ($mhs->status == 'pending')
                               <a href="{{ route('mahasiswaaktif.edit', $mhs->id) }}" class="btn btn-warning m-2"><i
-                                  class="fas fa-edit"></i></a>
-                              <form action="{{ route('mahasiswaaktif.approve', $mhs->id) }}" method="post"
-                                onsubmit="return confirm('Apakah yakin menyetujui data ini?')">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-primary m-2"><i class="fas fa-check"></i></button>
-                              </form>
-                              <form action="{{ route('mahasiswaaktif.reject', $mhs->id) }}" method="post"
-                                onsubmit="return confirm('Apakah yakin menolak data ini?)">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="btn btn-danger m-2"><i class="fas fa-times"></i></button>
-                              </form>
-
+                                  class="fas fa-edit"></i></a> <br>
+                              @if (Auth::user()->hasRole('karyawan-operator') || Auth::user()->hasRole('karyawan-admin'))
+                                <form action="{{ route('mahasiswaaktif.approve', $mhs->id) }}" method="post"
+                                  onsubmit="return confirm('Apakah yakin menyetujui data ini?')">
+                                  @csrf
+                                  @method('PATCH')
+                                  <button type="submit" class="btn btn-primary m-2"><i class="fas fa-check"></i></button>
+                                </form>
+                                <form action="{{ route('mahasiswaaktif.reject', $mhs->id) }}" method="post"
+                                  onsubmit="return confirm('Apakah yakin menolak data ini?)">
+                                  @csrf
+                                  @method('PATCH')
+                                  <button type="submit" class="btn btn-danger m-2"><i class="fas fa-times"></i></button>
+                                </form>
+                              @endif
                               <form action="{{ route('mahasiswaaktif.destroy', $mhs->id) }}" method="POST"
                                 onsubmit="return confirm('Apakah yakin menghapus data ini?')" class="d-inline">
                                 @csrf

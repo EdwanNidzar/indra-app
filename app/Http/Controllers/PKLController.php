@@ -17,7 +17,7 @@ class PKLController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role == 'karyawan-operator') {
+        if (Auth::user()->hasRole('karyawan-operator') || Auth::user()->hasRole('karyawan-admin')) {
             $pkl = DB::table('pkls')
                 ->join('users', 'pkls.user_id', '=', 'users.id')
                 ->select('pkls.*', 'users.name')

@@ -15,10 +15,18 @@ class CutiController extends Controller
      */
     public function index()
     {
-        $cuti = DB::table('cutis')
-            ->join('users', 'cutis.user_id', '=', 'users.id')
-            ->select('cutis.*', 'users.name')
-            ->get();
+        if (Auth::user()->hasRole('karyawan-operator') || Auth::user()->hasRole('karyawan-admin')) {
+            $cuti = DB::table('cutis')
+                ->join('users', 'cutis.user_id', '=', 'users.id')
+                ->select('cutis.*', 'users.name')
+                ->get();
+        } else {
+            $cuti = DB::table('cutis')
+                ->join('users', 'cutis.user_id', '=', 'users.id')
+                ->select('cutis.*', 'users.name')
+                ->where('cutis.user_id', Auth::user()->id)
+                ->get();
+        }
     
         return view('cuti.index', compact('cuti'));
     }
