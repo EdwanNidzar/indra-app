@@ -13,7 +13,7 @@
     <!-- NPM/NID/NIK -->
     <div>
       <x-input-label for="nomor" :value="__('NPM/NIDN/NIK')" />
-      <x-text-input id="nomor" class="block mt-1 w-full" type="text" name="nomor" :value="old('nomor')" required
+      <x-text-input id="nomor" class="block mt-1 w-full" type="number" name="nomor" :value="old('nomor')" required
         autofocus autocomplete="nomor" />
       <x-input-error :messages="$errors->get('nomor')" class="mt-2" />
     </div>
